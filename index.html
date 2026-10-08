@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f9ff">
+    <meta
+      name="description"
+      content="Carné virtual de Kevin Antonio, estudiante de Ingeniería Mecatrónica."
+    >
+    <title>Carné virtual | TIU VIRTUAL</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #48566a;
+        background: #f8f9ff;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        background: #f8f9ff;
+      }
+
+      .page {
+        position: relative;
+        width: min(100%, 640px);
+        height: max(100svh, calc(min(100vw, 640px) * 2.165625));
+        min-height: 700px;
+        margin: 0 auto;
+        overflow: hidden;
+        background: #f8f9ff;
+      }
+
+      .clock-block {
+        position: absolute;
+        top: 9.5%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 14px;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+
+      .clock {
+        width: min(47.5vw, 304px);
+        padding: 17px 30px 15px;
+        border-radius: 13px;
+        background: #dedbff;
+        color: #08090d;
+        font-size: clamp(23px, 8.5vw, 54px);
+        font-weight: 400;
+        line-height: 1.2;
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .date {
+        font-size: clamp(16px, 3.6vw, 23px);
+      }
+
+      .portrait {
+        position: absolute;
+        z-index: 2;
+        top: 28%;
+        left: 50%;
+        width: 55%;
+        aspect-ratio: 1;
+        max-width: 354px;
+        transform: translateX(-50%);
+      }
+
+      .portrait-photo {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .cloud {
+        position: absolute;
+        z-index: 1;
+        height: auto;
+        fill: #c7ccff;
+      }
+
+      .cloud-one {
+        top: 49.8%;
+        left: 2.5%;
+        width: 8%;
+      }
+
+      .cloud-two {
+        top: 47.2%;
+        right: 21%;
+        width: 8%;
+      }
+
+      .cloud-three {
+        top: 51.9%;
+        left: 47.5%;
+        width: 17%;
+      }
+
+      .cloud-four {
+        top: 56.2%;
+        left: 21%;
+        width: 8%;
+      }
+
+      .cloud-five {
+        top: 55%;
+        right: 2%;
+        width: 5%;
+      }
+
+      .cloud-six {
+        top: 55.5%;
+        left: -2%;
+        width: 3%;
+      }
+
+      .campus {
+        position: absolute;
+        right: 0;
+        bottom: 23.3%;
+        left: 0;
+        width: 100%;
+        height: 15%;
+      }
+
+      .student-card {
+        position: absolute;
+        z-index: 2;
+        right: 5%;
+        bottom: 4.7%;
+        left: 5%;
+        display: flex;
+        min-height: 27.7%;
+        align-items: center;
+        flex-direction: column;
+        padding: 6.1% 3% 4%;
+        border-radius: 20px;
+        background: #fff;
+        text-align: center;
+      }
+
+      .student-name {
+        margin: 0 0 clamp(11px, 2.97vw, 19px);
+        color: #c91628;
+        font-family: Impact, "Arial Narrow", "Roboto Condensed", sans-serif;
+        font-size: clamp(24px, 6.8vw, 44px);
+        font-weight: 400;
+        letter-spacing: 0.025em;
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+
+      .field-label,
+      .field-value,
+      .campus-name,
+      .program {
+        margin: 0;
+        font-size: clamp(13px, 3.35vw, 22px);
+        line-height: 1.35;
+      }
+
+      .field-value {
+        margin-top: clamp(4px, 1.1vw, 7px);
+        font-weight: 700;
+      }
+
+      .student-id {
+        margin-bottom: clamp(8px, 2.2vw, 14px);
+      }
+
+      .banner-id {
+        margin-bottom: clamp(14px, 4.2vw, 27px);
+      }
+
+      .program {
+        margin-bottom: clamp(4px, 1.25vw, 8px);
+        font-weight: 700;
+      }
+
+      .campus-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .pin {
+        font-size: 20px;
+      }
+
+      @media (max-width: 390px) {
+        .clock {
+          padding: 13px 10px;
+        }
+
+        .clock-block {
+          gap: 11px;
+        }
+
+        .student-name {
+          font-size: 6.35vw;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .clock {
+          transition: background-color 180ms ease;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page" aria-label="Carné virtual de estudiante">
+      <section class="clock-block" aria-label="Hora y fecha actuales">
+        <time class="clock" id="clock" aria-label="Hora actual">17:32:15</time>
+        <time class="date" id="date" datetime="2026-10-08">Jueves, 8 Oct 2026</time>
+      </section>
+
+      <div class="portrait">
+        <img class="portrait-photo" src="./IMAGEN_foto.png" alt="Retrato del estudiante">
+      </div>
+
+      <svg class="cloud cloud-one" viewBox="0 0 72 28" aria-hidden="true">
+        <path d="M2 23c0-5 4-9 9-9 2 0 4 1 5 2C17 8 23 2 31 2s14 6 15 14c2-3 5-5 9-5 7 0 12 5 12 12H2Z"/>
+      </svg>
+      <svg class="cloud cloud-two" viewBox="0 0 72 28" aria-hidden="true">
+        <path d="M2 23c0-5 4-9 9-9 2 0 4 1 5 2C17 8 23 2 31 2s14 6 15 14c2-3 5-5 9-5 7 0 12 5 12 12H2Z"/>
+      </svg>
+      <svg class="cloud cloud-three" viewBox="0 0 120 45" aria-hidden="true">
+        <path d="M2 39c0-9 7-16 16-16 4 0 8 2 10 5C30 15 40 4 53 4s24 11 25 25c4-6 10-10 17-10 12 0 22 9 22 20H2Z"/>
+      </svg>
+      <svg class="cloud cloud-four" viewBox="0 0 72 28" aria-hidden="true">
+        <path d="M2 23c0-5 4-9 9-9 2 0 4 1 5 2C17 8 23 2 31 2s14 6 15 14c2-3 5-5 9-5 7 0 12 5 12 12H2Z"/>
+      </svg>
+      <svg class="cloud cloud-five" viewBox="0 0 72 28" aria-hidden="true">
+        <path d="M2 23c0-5 4-9 9-9 2 0 4 1 5 2C17 8 23 2 31 2s14 6 15 14c2-3 5-5 9-5 7 0 12 5 12 12H2Z"/>
+      </svg>
+      <svg class="cloud cloud-six" viewBox="0 0 72 28" aria-hidden="true">
+        <path d="M2 23c0-5 4-9 9-9 2 0 4 1 5 2C17 8 23 2 31 2s14 6 15 14c2-3 5-5 9-5 7 0 12 5 12 12H2Z"/>
+      </svg>
+
+      <svg class="campus" viewBox="0 0 640 210" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="#e9ebff">
+          <path d="M0 173h25v-38h10v-13h9v51h13v-26h17v26h20v-16h17v16h13v-39h8v-12h8v51h21v-23h10v-18h8v41h17v-22h20v22h15v-31h20v31h14v-52h12v-18h12v70h14v-25h14v25h11v-51h12v-20h14v71h15v-32h18v32h13v-53h12v-23h13v76h14v-31h20v31h17v-21h20v21h13v-50h10v-17h17v67h16v-29h23v29h24v37H0v-37Z"/>
+        </g>
+        <g fill="#dfe2ff" opacity=".92">
+          <circle cx="69" cy="118" r="58"/>
+          <circle cx="69" cy="118" r="45" fill="#f8f9ff"/>
+          <circle cx="69" cy="118" r="35" fill="#e5e7ff"/>
+          <path d="M69 84v10m0 48v10M35 118h10m48 0h10M45 94l8 8m32 32 8 8m0-48-8 8m-32 32-8 8M69 106l-7-10m7 46 7 10m-4-34 12-7m-30 17-11 7m29-3 7 11m-20-29-6-12" stroke="#f8f9ff" stroke-width="4" stroke-linecap="round"/>
+          <path d="M318 72h14v-8c0-12 9-21 21-21s21 9 21 21v8h14v94H318V72Zm-9 0h103l-6 14H315l-6-14Z"/>
+          <path d="M324 91h64v75h-64z" fill="#f8f9ff"/>
+          <path d="M331 97h50v69h-50z" fill="#e4e7ff"/>
+          <path d="M355 97v69m-24-34h50" stroke="#cdd2ff" stroke-width="4"/>
+          <circle cx="355" cy="64" r="24"/>
+          <circle cx="355" cy="64" r="15" fill="#f8f9ff"/>
+          <path d="M357 53c-5 7-1 10 2 14 2 3 1 7-3 8-6 1-9-7-5-13-7 5-8 16 1 20 8 3 16-2 16-10 0-8-7-12-11-19Z" fill="#d4d8ff"/>
+        </g>
+      </svg>
+
+      <section class="student-card" aria-labelledby="student-name">
+        <h1 class="student-name" id="student-name">KEVIN ANTONIO D*** A***</h1>
+        <p class="field-label">Código de alumno:</p>
+        <p class="field-value student-id">201918193</p>
+        <p class="field-label">ID Banner:</p>
+        <p class="field-value banner-id">N02048404</p>
+        <p class="program">INGENIERÍA MECATRÓNICA</p>
+        <p class="campus-name"><span class="pin" aria-hidden="true">📍</span>Campus San Miguel</p>
+      </section>
+    </main>
+
+    <script>
+      const clock = document.getElementById("clock");
+      const date = document.getElementById("date");
+
+      const weekdayFormatter = new Intl.DateTimeFormat("es-ES", {
+        weekday: "long",
+      });
+      const datePartFormatters = {
+        day: new Intl.DateTimeFormat("es-ES", { day: "numeric" }),
+        month: new Intl.DateTimeFormat("es-ES", { month: "short" }),
+        year: new Intl.DateTimeFormat("es-ES", { year: "numeric" }),
+      };
+
+      function updateDateAndTime() {
+        const now = new Date();
+        clock.textContent = new Intl.DateTimeFormat("es-ES", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        }).format(now);
+
+        const weekday = weekdayFormatter.format(now);
+        const month = datePartFormatters.month.format(now).replace(".", "");
+        date.textContent = `${weekday.charAt(0).toLocaleUpperCase("es-ES")}${weekday.slice(1)}, ${
+          datePartFormatters.day.format(now)
+        } ${month.charAt(0).toLocaleUpperCase("es-ES")}${month.slice(1)} ${
+          datePartFormatters.year.format(now)
+        }`;
+        date.dateTime = [
+          now.getFullYear(),
+          String(now.getMonth() + 1).padStart(2, "0"),
+          String(now.getDate()).padStart(2, "0"),
+        ].join("-");
+      }
+
+      updateDateAndTime();
+      window.setInterval(updateDateAndTime, 1000);
+    </script>
+  </body>
+</html>
